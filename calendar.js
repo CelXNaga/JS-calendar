@@ -1,10 +1,15 @@
-var calendar = document.querySelector('#calendar');
-var dates = document.querySelector('.dates');
-console.log(dates);
-console.log(calendar);
-build(2018, 11, dates);
+//var calendar = document.querySelector('#calendar');
+initCalendar(2018, 11, document.querySelector('#calendar')); 
 
 
+//Функция инициализации календаря
+function initCalendar(year, month, calendar) {
+	var dates = calendar.querySelector('.dates');
+	var info = calendar.querySelector('.info');
+
+	build(year, month, dates);
+	showInfo(year, month, info);
+}
 //Главная функция, которая создает календарь
 function build(year, month, dates) {
 	var arr = [];
@@ -27,10 +32,32 @@ function build(year, month, dates) {
 	arr = matrix(7, arr);
 	createTable(arr, dates);
 }
+
+//функция, которая отображает блок инфо
+function showInfo(year, month, elem) {
+	elem.innerHTML = getMonthName(month) + ' ' +year;
+}
+
+//функция принимает номер месяца, а возвращает его название
+function getMonthName(num) {
+	var monthes = ['Январь',
+				   'Февраль',
+				   'Март',
+				   'Апрель',
+				   'Май',
+				   'Июнь',
+				   'Июль',
+				   'Август',
+				   'Сентябрь',
+				   'Октябрь',
+				   'Ноябрь',
+				   'Декабрь'];
+	return monthes[num];
+}
+
 //сюда передается уже двумерный массив, поэтому цикл будет двойной
 //i2 - массив, элементы которого массивы
 //i - под массив, элементы которого числа
-
 function createTable(arr, parent) {
 	for (var i2 = 0; i2 < arr.length; i2++) {
 		var tr = document.createElement('tr');
